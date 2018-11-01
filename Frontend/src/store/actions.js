@@ -32,12 +32,8 @@ export default {
     },
 
     [Const.UPDATE_TODO] : (store, payload) => {
-        console.log(payload.link)
-        console.log(payload.post)
-
         axios.put(payload.link, payload.post)
             .then(()=> {
-                console.log("끝")
                 store.dispatch(Const.GET_TODO_ALL)
                 store.commit(Const.DISABLE_UPDATE_MODAL)
             })

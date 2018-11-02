@@ -1,5 +1,6 @@
 package me.bactoria.todoList.todo;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDate;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 public class Todo {

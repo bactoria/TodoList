@@ -21,6 +21,6 @@ public interface TodoRepository extends JpaRepository<Todo, Long> {
         @Query(value= "update Todo todo set todo.title = :title, todo.content = :content, todo.closingDate = :closingDate, todo.priority = :priority where todo.id = :id")
         int updateTodo(@Param("id") Long id, @Param("title") String title, @Param("content") String content, @Param("closingDate") LocalDate closingDate, @Param("priority") Long priority);
 
-        @Query(value = "select * from todo where closing_date < now() and not is_completed_todo;", nativeQuery=true)
+        @Query(value = "select * from todo where closing_date < getdate() and not is_completed_todo;", nativeQuery=true)
         List<Todo> findExpired();
 }

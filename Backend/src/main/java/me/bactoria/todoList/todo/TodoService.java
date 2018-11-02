@@ -25,11 +25,13 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
-    public int updateTodoWithTitleAndContentAndClosingDate(Long id, Todo todo) {
+    public int updateTodoWithTitleAndContentAndClosingDateAndPriority(Long id, Todo todo) {
         String title = todo.getTitle();
         String content = todo.getContent();
         LocalDate closingDate = todo.getClosingDate();
-        return todoRepository.updateTodo(id, title, content, closingDate);
+        Long priority = todo.getPriority();
+
+        return todoRepository.updateTodo(id, title, content, closingDate, priority);
     }
 
     public void deleteTodo(Long id) {

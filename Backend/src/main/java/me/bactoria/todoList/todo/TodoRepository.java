@@ -17,6 +17,6 @@ public interface TodoRepository extends JpaRepository<Todo, Long> {
 
         @Modifying(clearAutomatically = true)
         @Transactional
-        @Query(value= "update Todo todo set todo.title = :title, todo.content = :content, todo.closingDate = :closingDate where todo.id = :id")
-        int updateTodo(@Param("id") Long id, @Param("title") String title, @Param("content") String content, @Param("closingDate") LocalDate closingDate);
+        @Query(value= "update Todo todo set todo.title = :title, todo.content = :content, todo.closingDate = :closingDate, todo.priority = :priority where todo.id = :id")
+        int updateTodo(@Param("id") Long id, @Param("title") String title, @Param("content") String content, @Param("closingDate") LocalDate closingDate, @Param("priority") Long priority);
 }

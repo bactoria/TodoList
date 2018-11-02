@@ -47,7 +47,7 @@ public class TodoController {
     @PutMapping("/{id}")
     public int updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
         log.info("PUT :: /api/todos/" + id  + "   Todo :: " + todo);
-        return todoService.updateTodoWithTitleAndContentAndClosingDate(id, todo);
+        return todoService.updateTodoWithTitleAndContentAndClosingDateAndPriority(id, todo);
     }
 
     @PutMapping("/{id}/completed")

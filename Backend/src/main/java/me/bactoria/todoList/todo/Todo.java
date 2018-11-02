@@ -31,12 +31,16 @@ public class Todo {
     @Column
     private boolean isCompletedTodo;
 
+    @Column
+    private Long priority;
+
     @Builder
-    public Todo(String title, String content, LocalDate closingDate, boolean isCompletedTodo) {
+    public Todo(String title, String content, LocalDate closingDate, boolean isCompletedTodo, Long priority) {
         this.title = title;
         this.content = content;
         this.closingDate = closingDate;
         this.isCompletedTodo = isCompletedTodo;
+        this.priority = priority;
     }
 
     @Override
@@ -47,6 +51,7 @@ public class Todo {
                 ", content='" + content + '\'' +
                 ", closingDate=" + closingDate +
                 ", isCompletedTodo=" + isCompletedTodo +
+                ", priority=" + priority +
                 '}';
     }
 }

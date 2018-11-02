@@ -21,7 +21,7 @@ public class TodoController {
 
     @GetMapping
     public ResponseEntity<Resources<TodoResource>> getTodoAll() {
-
+        log.info("GET :: /api/todos");
         List<TodoResource> todos = todoService.getTodoAll().stream().map(TodoResource::new).collect(Collectors.toList());
         Resources<TodoResource> resources = new Resources<>(todos);
         //       resources.add(linkTo(methodOn(TodoController.class).getTodos()).withSelfRel()); //셀프 링크 추가
@@ -40,7 +40,7 @@ public class TodoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<TodoResource> getTodo(@PathVariable Long id) {
-
+        log.info("GET :: /api/todos/" + id);
         Todo todo = todoService.getTodo(id).orElseThrow(TodoNotFoundException::new);
         TodoResource todoResource = new TodoResource(todo);
         return ResponseEntity.ok(todoResource);

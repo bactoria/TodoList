@@ -2,10 +2,12 @@ package me.bactoria.todoList.todo.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import me.bactoria.todoList.todo.Todo;
 
 import java.time.LocalDate;
 
+@NoArgsConstructor
 @Getter
 public class SaveTodoRequestDto {
 

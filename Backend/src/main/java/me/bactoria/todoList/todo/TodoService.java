@@ -42,4 +42,8 @@ public class TodoService {
         todoRepository.updatec(id);
     }
 
+    public List<Todo> getTodoExpired() {
+
+        return todoRepository.findExpired();
+    }
 }

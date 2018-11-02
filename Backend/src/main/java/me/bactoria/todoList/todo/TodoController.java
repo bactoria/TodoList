@@ -30,6 +30,14 @@ public class TodoController {
         return ResponseEntity.ok(resources);
     }
 
+    @GetMapping("/expired")
+    public ResponseEntity<Resources<TodoResource>> getTodoExpired() {
+        log.info("GET :: /api/todos/expired");
+        List<TodoResource> todos = todoService.getTodoExpired().stream().map(TodoResource::new).collect(Collectors.toList());
+        Resources<TodoResource> resources = new Resources<>(todos);
+        return ResponseEntity.ok(resources);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<TodoResource> getTodo(@PathVariable Long id) {
 

@@ -3,7 +3,6 @@ package me.bactoria.todoList.todo;
 import lombok.extern.slf4j.Slf4j;
 import me.bactoria.todoList.todo.dto.SaveTodoRequestDto;
 import me.bactoria.todoList.todo.dto.UpdateTodoRequestDto;
-import me.bactoria.todoList.todo.exception.TodoNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +42,8 @@ public class TodoController {
     @GetMapping("/{id}")
     public ResponseEntity<TodoResource> getTodo(@PathVariable Long id) {
         log.info("GET :: /api/todos/" + id);
-        Todo todo = todoService.getTodo(id).orElseThrow(TodoNotFoundException::new);
+
+        Todo todo = todoService.getTodo(id);
         TodoResource todoResource = new TodoResource(todo);
         return ResponseEntity.ok(todoResource);
     }

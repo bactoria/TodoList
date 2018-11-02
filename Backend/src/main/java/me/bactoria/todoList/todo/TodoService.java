@@ -2,12 +2,12 @@ package me.bactoria.todoList.todo;
 
 import me.bactoria.todoList.todo.dto.SaveTodoRequestDto;
 import me.bactoria.todoList.todo.dto.UpdateTodoRequestDto;
+import me.bactoria.todoList.todo.exception.TodoNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TodoService {
@@ -19,8 +19,8 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
-    public Optional<Todo> getTodo(Long id) {
-        return todoRepository.findById(id);
+    public Todo getTodo(Long id) {
+        return todoRepository.findById(id).orElseThrow(TodoNotFoundException::new);
     }
 
     public Todo saveTodo(SaveTodoRequestDto dto) {

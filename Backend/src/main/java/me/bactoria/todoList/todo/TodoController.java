@@ -61,9 +61,9 @@ public class TodoController {
     }
 
     @PutMapping("/{id}/completed")
-    public void updateCompletedTodo(@PathVariable Long id) {
+    public int updateCompletedTodo(@PathVariable Long id) {
         log.info("PUT :: /api/todos/" + id + "/completed");
-        todoService.updateCompletedTodo(id);
+        return todoService.updateCompletedTodo(id);
     }
 
     @DeleteMapping("/{id}")

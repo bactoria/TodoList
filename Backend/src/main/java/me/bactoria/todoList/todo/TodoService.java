@@ -1,5 +1,7 @@
 package me.bactoria.todoList.todo;
 
+import me.bactoria.todoList.todo.dto.SaveTodoRequestDto;
+import me.bactoria.todoList.todo.dto.UpdateTodoRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,15 +23,25 @@ public class TodoService {
         return todoRepository.findById(id);
     }
 
-    public Todo saveTodo(Todo todo) {
+    public Todo saveTodo(SaveTodoRequestDto dto) {
+
+        Todo todo = dto.builder()
+                .title(dto.getTitle())
+                .content(dto.getContent())
+                .closingDate(dto.getClosingDate())
+                .isCompletedTodo(dto.isCompletedTodo())
+                .priority(dto.getPriority())
+                .build()
+                .toEntity();
+
         return todoRepository.save(todo);
     }
 
-    public int updateTodoWithTitleAndContentAndClosingDateAndPriority(Long id, Todo todo) {
-        String title = todo.getTitle();
-        String content = todo.getContent();
-        LocalDate closingDate = todo.getClosingDate();
-        Long priority = todo.getPriority();
+    public int updateTodoWithTitleAndContentAndClosingDateAndPriority(Long id, UpdateTodoRequestDto dto) {
+        String title = dto.getTitle();
+        String content = dto.getContent();
+        LocalDate closingDate = dto.getClosingDate();
+        Long priority = dto.getPriority();
 
         return todoRepository.updateTodo(id, title, content, closingDate, priority);
     }

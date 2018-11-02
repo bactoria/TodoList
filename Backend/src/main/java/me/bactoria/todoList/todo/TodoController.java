@@ -1,6 +1,8 @@
 package me.bactoria.todoList.todo;
 
 import lombok.extern.slf4j.Slf4j;
+import me.bactoria.todoList.todo.dto.SaveTodoRequestDto;
+import me.bactoria.todoList.todo.dto.UpdateTodoRequestDto;
 import me.bactoria.todoList.todo.exception.TodoNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
@@ -47,15 +49,15 @@ public class TodoController {
     }
 
     @PostMapping
-    public Todo saveTodo(@RequestBody Todo todo) {
-        log.info("POST :: /api/todos" + "   Todo :: " + todo);
-        return todoService.saveTodo(todo);
+    public Todo saveTodo(@RequestBody SaveTodoRequestDto dto) {
+        log.info("POST :: /api/todos" + "   dto :: " +dto);
+        return todoService.saveTodo(dto);
     }
 
     @PutMapping("/{id}")
-    public int updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
-        log.info("PUT :: /api/todos/" + id  + "   Todo :: " + todo);
-        return todoService.updateTodoWithTitleAndContentAndClosingDateAndPriority(id, todo);
+    public int updateTodo(@PathVariable Long id, @RequestBody UpdateTodoRequestDto dto) {
+        log.info("PUT :: /api/todos/" + id + "   dto :: " + dto);
+        return todoService.updateTodoWithTitleAndContentAndClosingDateAndPriority(id, dto);
     }
 
     @PutMapping("/{id}/completed")

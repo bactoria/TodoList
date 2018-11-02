@@ -16,6 +16,5 @@ public class TodoResource extends ResourceSupport {
         this.todo = todo;
         final Long id = todo.getId();
         add(linkTo(methodOn(TodoController.class).getTodo(id)).withSelfRel());
-        add(linkTo(methodOn(TodoController.class).getTodo(id)).withRel("음이건멀까"));
     }
 }

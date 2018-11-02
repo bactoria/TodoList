@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 
 public interface TodoRepository extends JpaRepository<Todo, Long> {
 

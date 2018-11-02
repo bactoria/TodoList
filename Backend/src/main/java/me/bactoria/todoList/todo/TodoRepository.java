@@ -14,7 +14,7 @@ public interface TodoRepository extends JpaRepository<Todo, Long> {
         @Modifying(clearAutomatically = true)
         @Transactional
         @Query(value = "update Todo todo set todo.isCompletedTodo=true where todo.id = ?1")
-        void updatec(Long id);
+        void updateCompletedTodo(Long id);
 
         @Modifying(clearAutomatically = true)
         @Transactional

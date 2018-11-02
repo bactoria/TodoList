@@ -50,8 +50,8 @@ public class TodoService {
         todoRepository.deleteById(id);
     }
 
-    public void updateC(Long id) {
-        todoRepository.updatec(id);
+    public void updateCompletedTodo(Long id) {
+        todoRepository.updateCompletedTodo(id);
     }
 
     public List<Todo> getTodoExpired() {

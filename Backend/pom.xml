@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.bactoria.todolist</groupId>
-    <artifactId>TodoList__WinterCoding</artifactId>
+    <artifactId>TodoList__Backend</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <!-- Inherit defaults from Spring Boot -->

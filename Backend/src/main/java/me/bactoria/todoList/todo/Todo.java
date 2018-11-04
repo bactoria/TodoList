@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,10 +21,10 @@ public class Todo {
     @GeneratedValue
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String title;
 
-    @Column
+    @Column(nullable = false)
     private String content;
 
     @Column
@@ -32,7 +33,7 @@ public class Todo {
     @Column
     private boolean isCompletedTodo;
 
-    @Column
+    @Column(nullable = false)
     private Long priority;
 
     @Builder

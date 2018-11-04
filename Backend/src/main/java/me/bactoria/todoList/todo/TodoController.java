@@ -8,6 +8,7 @@ import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,9 +26,6 @@ public class TodoController {
         log.info("GET :: /api/todos");
         List<TodoResource> todos = todoService.getTodoAll().stream().map(TodoResource::new).collect(Collectors.toList());
         Resources<TodoResource> resources = new Resources<>(todos);
-        //       resources.add(linkTo(methodOn(TodoController.class).getTodos()).withSelfRel()); //셀프 링크 추가
-        //final String uriString = ServletUriComponentsBuilder.fromCurrentRequest().build().toUriString();
-        //resources.add(new Link(uriString, "self"));
         return ResponseEntity.ok(resources);
     }
 
@@ -49,13 +47,13 @@ public class TodoController {
     }
 
     @PostMapping
-    public Todo saveTodo(@RequestBody SaveTodoRequestDto dto) {
+    public Todo saveTodo(@Valid @RequestBody SaveTodoRequestDto dto) {
         log.info("POST :: /api/todos" + "   dto :: " +dto);
         return todoService.saveTodo(dto);
     }
 
     @PutMapping("/{id}")
-    public int updateTodo(@PathVariable Long id, @RequestBody UpdateTodoRequestDto dto) {
+    public int updateTodo(@PathVariable Long id, @Valid @RequestBody UpdateTodoRequestDto dto) {
         log.info("PUT :: /api/todos/" + id + "   dto :: " + dto);
         return todoService.updateTodoWithTitleAndContentAndClosingDateAndPriority(id, dto);
     }

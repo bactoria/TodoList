@@ -1,23 +1,25 @@
 import axios from 'axios'
 import Const from '../Constant'
 
+var server = "http://localhost:8081/api"
+
 export default {
     [Const.GET_TODO_ALL] : (store) => {
-        axios.get("http://localhost:8081/api/todos")
+        axios.get(server + "/todos")
             .then((response) => {
                 store.commit(Const.GET_TODO_ALL, response.data)
             })
     },
 
     [Const.GET_TODO_EXPIRED] : (store) => {
-        axios.get("http://localhost:8081/api/todos/expired")
+        axios.get(server + "/todos/expired")
             .then((response) => {
                 store.commit(Const.GET_TODO_EXPIRED, response.data)
             })
     },
 
     [Const.ADD_TODO] : (store, payload) => {
-        axios.post("http://localhost:8081/api/todos", payload)
+        axios.post(server + "/todos", payload)
             .then(() => {
                 store.dispatch(Const.GET_TODO_ALL)
                 store.commit(Const.INIT_ADD_MODAL)

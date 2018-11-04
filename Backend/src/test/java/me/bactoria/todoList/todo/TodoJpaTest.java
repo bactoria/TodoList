@@ -39,7 +39,7 @@ public class TodoJpaTest {
     @Test
     public void 특정_Todo를_완료처리한다() {
         //given
-        Todo todo = SaveTodoRequestDto.builder().isCompletedTodo(false).build().toEntity();
+        Todo todo = SaveTodoRequestDto.builder().title("제목").content("내용").priority(1L).isCompletedTodo(false).build().toEntity();
         testEntityManager.persist(todo);
 
         //when
@@ -52,7 +52,7 @@ public class TodoJpaTest {
     @Test
     public void 특정_Todo를_불러온다() {
         //given
-        Todo todo = SaveTodoRequestDto.builder().build().toEntity();
+        Todo todo = SaveTodoRequestDto.builder().title("제목").content("내용").priority(1L).build().toEntity();
         testEntityManager.persist(todo);
 
         //when
@@ -65,8 +65,8 @@ public class TodoJpaTest {
     @Test
     public void 모든_Todo를_불러온다() {
         //given
-        Todo todo1 = SaveTodoRequestDto.builder().build().toEntity();
-        Todo todo2 = SaveTodoRequestDto.builder().build().toEntity();
+        Todo todo1 = SaveTodoRequestDto.builder().title("제목1").content("내용1").priority(1L).build().toEntity();
+        Todo todo2 = SaveTodoRequestDto.builder().title("제목2").content("내용2").priority(1L).build().toEntity();
         testEntityManager.persist(todo1);
         testEntityManager.persist(todo2);
 
@@ -80,9 +80,9 @@ public class TodoJpaTest {
     @Test
     public void 만료된_모든_Todo를_불러온다() {
         //given
-        Todo todo1 = SaveTodoRequestDto.builder().closingDate(LocalDate.now().minusDays(1)).build().toEntity();
-        Todo todo2 = SaveTodoRequestDto.builder().closingDate(LocalDate.now()).build().toEntity();
-        Todo todo3 = SaveTodoRequestDto.builder().closingDate(LocalDate.now().plusDays(1)).build().toEntity();
+        Todo todo1 = SaveTodoRequestDto.builder().title("제목1").content("내용1").priority(1L).closingDate(LocalDate.now().minusDays(1)).build().toEntity();
+        Todo todo2 = SaveTodoRequestDto.builder().title("제목2").content("내용2").priority(1L).closingDate(LocalDate.now()).build().toEntity();
+        Todo todo3 = SaveTodoRequestDto.builder().title("제목3").content("내용3").priority(1L).closingDate(LocalDate.now().plusDays(1)).build().toEntity();
         testEntityManager.persist(todo1);
         testEntityManager.persist(todo2);
         testEntityManager.persist(todo3);
@@ -107,7 +107,7 @@ public class TodoJpaTest {
     @Test
     public void 특정_Todo를_삭제한다() {
         //given
-        Todo todo = SaveTodoRequestDto.builder().build().toEntity();
+        Todo todo = SaveTodoRequestDto.builder().title("제목").content("내용").priority(1L).build().toEntity();
         testEntityManager.persist(todo);
 
         //when

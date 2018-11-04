@@ -45,6 +45,163 @@ public class TodoControllerTest {
     }
 
     @Test
+    public void 제목이_없는_Todo_저장요청시_BadRequest() throws Exception {
+        //given
+        SaveTodoRequestDto dto = SaveTodoRequestDto.builder().content("내용").priority(1L).build();
+        //when
+        mockMvc.perform(post("/api/todos")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(jsonStringFromObject(dto)))
+
+                //then
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message",is("제목을 작성해주세요.")));
+    }
+
+    @Test
+    public void 내용이_없는_Todo_저장요청시_BadRequest() throws Exception {
+        //given
+        SaveTodoRequestDto dto = SaveTodoRequestDto.builder().title("제목").priority(1L).build();
+        //when
+        mockMvc.perform(post("/api/todos")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(jsonStringFromObject(dto)))
+
+                //then
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message",is("내용을 작성해주세요.")));
+    }
+
+    @Test
+    public void 우선순위가_없는_Todo_저장요청시_BadRequest() throws Exception {
+        //given
+        SaveTodoRequestDto dto = SaveTodoRequestDto.builder().title("제목").content("내용").build();
+        //when
+        mockMvc.perform(post("/api/todos")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(jsonStringFromObject(dto)))
+
+                //then
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message",is("우선순위를 입력해주세요.")));
+    }
+
+    @Test
+    public void 우선순위가_0인_Todo_저장요청시_BadRequest() throws Exception {
+        //given
+        SaveTodoRequestDto dto = SaveTodoRequestDto.builder().title("제목").content("내용").priority(0L).build();
+        //when
+        mockMvc.perform(post("/api/todos")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(jsonStringFromObject(dto)))
+
+                //then
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message",is("우선순위는 1~3 사이의 값이어야 합니다.")));
+    }
+
+    @Test
+    public void 우선순위가_4인_Todo_저장요청시_BadRequest() throws Exception {
+        //given
+        SaveTodoRequestDto dto = SaveTodoRequestDto.builder().title("제목").content("내용").priority(4L).build();
+        //when
+        mockMvc.perform(post("/api/todos")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(jsonStringFromObject(dto)))
+
+                //then
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message",is("우선순위는 1~3 사이의 값이어야 합니다.")));
+    }
+
+    @Test
+    public void 제목이_없는_Todo_수정요청시_BadRequest() throws Exception {
+        //given
+        UpdateTodoRequestDto dto = UpdateTodoRequestDto.builder().content("내용").priority(1L).build();
+
+        //when
+        mockMvc.perform(put("/api/todos/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(jsonStringFromObject(dto)))
+
+                //then
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message",is("제목을 작성해주세요.")));
+    }
+
+
+    @Test
+    public void 내용이_없는_Todo_수정요청시_BadRequest() throws Exception {
+        //given
+        UpdateTodoRequestDto dto = UpdateTodoRequestDto.builder().title("제목").priority(1L).build();
+
+        //when
+        mockMvc.perform(put("/api/todos/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(jsonStringFromObject(dto)))
+
+                //then
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message",is("내용을 작성해주세요.")));
+    }
+
+
+    @Test
+    public void 우선순위가_없는_Todo_수정요청시_BadRequest() throws Exception {
+        //given
+        UpdateTodoRequestDto dto = UpdateTodoRequestDto.builder().title("제목").content("내용").build();
+
+        //when
+        mockMvc.perform(put("/api/todos/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(jsonStringFromObject(dto)))
+
+                //then
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message",is("우선순위를 입력해주세요.")));
+    }
+
+    @Test
+    public void 우선순위가_0인_Todo_수정요청시_BadRequest() throws Exception {
+        //given
+        UpdateTodoRequestDto dto = UpdateTodoRequestDto.builder().title("제목").content("내용").priority(0L).build();
+
+        //when
+        mockMvc.perform(put("/api/todos/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(jsonStringFromObject(dto)))
+
+                //then
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message",is("우선순위는 1~3 사이의 값이어야 합니다.")));
+    }
+
+    @Test
+    public void 우선순위가_4인_Todo_수정요청시_BadRequest() throws Exception {
+        //given
+        UpdateTodoRequestDto dto = UpdateTodoRequestDto.builder().title("제목").content("내용").priority(0L).build();
+
+        //when
+        mockMvc.perform(put("/api/todos/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(jsonStringFromObject(dto)))
+
+                //then
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message",is("우선순위는 1~3 사이의 값이어야 합니다.")));
+    }
+
+    @Test
     public void 전체_TODO들을_불러온다() throws Exception {
 
         //given
@@ -85,6 +242,7 @@ public class TodoControllerTest {
                 .andExpect(jsonPath("$._embedded.todoResourceList[1].todo.title", is("제목2")));
     }
 
+
     @Test
     public void 특정_TODO를_불러온다() throws Exception {
 
@@ -103,10 +261,10 @@ public class TodoControllerTest {
     }
 
     @Test
-    public void TODO를_저장한다() throws Exception {
+    public void 제목_내용_우선순위가_정상적인_TODO_저장한다() throws Exception {
 
         //given
-        SaveTodoRequestDto dto = SaveTodoRequestDto.builder().title("제목1").build();
+        SaveTodoRequestDto dto = SaveTodoRequestDto.builder().title("제목").content("내용").priority(1L).build();
         Todo todo = dto.toEntity();
 
         given(todoServiceMock.saveTodo(any(SaveTodoRequestDto.class))).willReturn(todo);
@@ -119,17 +277,17 @@ public class TodoControllerTest {
                 //then
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.title", is("제목1")));
+                .andExpect(jsonPath("$.title", is("제목")));
     }
 
     @Test
-    public void TODO를_수정한다() throws Exception {
+    public void 제목_내용_우선순위가_정상적인_TODO를_수정한다() throws Exception {
 
         //given
-        UpdateTodoRequestDto dto = UpdateTodoRequestDto.builder().title("제목1").build();
-        final int ID = 1;
+        final long ID = 1L;
+        UpdateTodoRequestDto dto = UpdateTodoRequestDto.builder().title("제목").content("내용").priority(ID).build();
 
-        given(todoServiceMock.updateTodoWithTitleAndContentAndClosingDateAndPriority(anyLong(), any(UpdateTodoRequestDto.class))).willReturn(ID);
+        given(todoServiceMock.updateTodoWithTitleAndContentAndClosingDateAndPriority(anyLong(), any(UpdateTodoRequestDto.class))).willReturn((int)ID);
 
         //when
         mockMvc.perform(put("/api/todos/{id}", ID)
@@ -142,7 +300,7 @@ public class TodoControllerTest {
     }
 
     @Test
-    public void TODO를_완료한다() throws Exception {
+    public void TODO를_완료처리한다() throws Exception {
 
         //given
         UpdateTodoRequestDto dto = UpdateTodoRequestDto.builder().title("제목1").build();

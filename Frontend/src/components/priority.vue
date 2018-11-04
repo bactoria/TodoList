@@ -9,9 +9,7 @@
 <script>
     export default {
         name: "priority",
-        props: {
-            priority: Number
-        }
+        props: ['priority']
     }
 </script>
 

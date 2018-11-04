@@ -1,28 +1,35 @@
 <template>
-    <div>
-        <v-btn color="red lighten-2" dark @click="addTodo()">
-            Add Todo
-        </v-btn>
+    <div class="GodoM">
         <TodoAddModal/>
-        <TodoUpdateModal :modal-todo="modalTodo"/>
+        <TodoUpdateModal :update-modal="updateModal" :todo-link="todoLink"/>
         <v-layout>
             <v-flex>
-                <v-card v-for="todo in todoList" :key="todo.todo.id"
-                        style="border: 1px solid darkgrey; margin: 2vh; width: 50vw;">
-
+                <v-card :class="{ expiredTodo: expiredTodo(todo.todo.completedTodo, todo.todo.closingDate), completedTodo: todo.todo.completedTodo}"
+                        v-for="todo in todoList.slice().reverse()" :key="todo.todo.id"
+                        style="border: 1px solid darkgrey; margin: 2vh; width: 50vw; ">
                     <v-layout row wrap>
+                        <v-flex xs1>
+                            <priority :priority=todo.todo.priority />
+                        </v-flex>
                         <v-flex xs8>
                             <div>
-                                <h3 class="headline mb-0">{{todo.todo.title}}</h3>
+                                <div>{{todo.todo.closingDate == null ? '- 만료기간 없음 -' : todo.todo.closingDate}}</div>
+                                <h2>{{todo.todo.title}}</h2>
                                 <div>{{todo.todo.content}}</div>
-                                <!--TODO : 마감기한-->
                             </div>
                         </v-flex>
                         <v-flex xs3>
-                            <v-btn flat color="orange" @click="updateTodo(todo)">수정</v-btn>
-                            <v-btn flat color="orange" @click="deleteTodo(todo._links.self)">삭제</v-btn>
-                            <v-btn v-if="!todo.todo.completedTodo" flat color="orange"
-                                   @click="completedTodo(todo._links.self)">완료
+                            <div>
+                                <v-btn flat small fab color="blue" @click="updateTodo(todo)">
+                                    <v-icon dark>edit</v-icon>
+                                </v-btn>
+                                <v-btn flat small fab color="red" @click="deleteTodo(todo._links.self)">
+                                    <v-icon dark>remove</v-icon>
+                                </v-btn>
+                            </div>
+                            <v-btn flat small color="#00FA9A" v-if="!todo.todo.completedTodo"
+                                   @click="completedTodo(todo._links.self)">
+                                <v-icon dark>check</v-icon>
                             </v-btn>
                         </v-flex>
                     </v-layout>
@@ -37,16 +44,18 @@
     import Const from '../Constant'
     import TodoUpdateModal from "./TodoUpdateModal";
     import TodoAddModal from "./TodoAddModal";
+    import Priority from "./priority";
 
     export default {
         name: "TodoList",
-        components: {TodoAddModal, TodoUpdateModal},
+        components: {Priority, TodoAddModal, TodoUpdateModal},
         computed: mapGetters({
             todoList: 'todoList'
         }),
-        data(){
+        data() {
             return {
-                modalTodo : {}
+                updateModal : {},
+                todoLink : ''
             }
         },
         mounted() {
@@ -59,17 +68,28 @@
             completedTodo(self) {
                 this.$store.dispatch(Const.COMPLETED_TODO, self)
             },
-            addTodo() {
-                this.$store.commit(Const.ENABLE_ADD_MODAL)
-            },
             updateTodo(todo) {
-                this.modalTodo = JSON.parse(JSON.stringify(todo))
+                this.todoLink = todo._links.self.href
+                this.updateModal = JSON.parse(JSON.stringify(todo.todo))
                 this.$store.commit(Const.ENABLE_UPDATE_MODAL)
+            },
+            expiredTodo(completedTodo, closingDate) {
+                return !completedTodo && closingDate != null && new Date(closingDate) < new Date().setHours(0, 0, 0, 0)
             }
         }
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+    @import "../assets/godoFont";
+
+    .completedTodo {
+        background-color: mediumspringgreen;
+    }
+
+    .expiredTodo {
+        background-color: darkorange;
+    }
 
 </style>

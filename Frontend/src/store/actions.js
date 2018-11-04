@@ -9,11 +9,22 @@ export default {
             })
     },
 
+    [Const.GET_TODO_EXPIRED] : (store) => {
+        axios.get("http://localhost:8081/api/todos/expired")
+            .then((response) => {
+                store.commit(Const.GET_TODO_EXPIRED, response.data)
+            })
+    },
+
     [Const.ADD_TODO] : (store, payload) => {
         axios.post("http://localhost:8081/api/todos", payload)
             .then(() => {
                 store.dispatch(Const.GET_TODO_ALL)
+                store.commit(Const.INIT_ADD_MODAL)
                 store.commit(Const.DISABLE_ADD_MODAL)
+            })
+            .catch(error => {
+                alert(error.response.data.message)
             })
     },
 
@@ -36,6 +47,9 @@ export default {
             .then(()=> {
                 store.dispatch(Const.GET_TODO_ALL)
                 store.commit(Const.DISABLE_UPDATE_MODAL)
+            })
+            .catch(error => {
+                alert(error.response.data.message)
             })
     }
 }

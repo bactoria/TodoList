@@ -1,8 +1,10 @@
 <template>
   <v-app align="center">
 
-    <h1>Todo List</h1>
     <v-content>
+      <TodoColorInfo/>
+      <TodoPriorityInfo/>
+      <TodoToolbar/>
       <TodoList/>
     </v-content>
 
@@ -11,10 +13,16 @@
 
 <script>
     import TodoList from './components/TodoList'
+    import TodoToolbar from "./components/TodoToolbar";
+    import TodoPriorityInfo from "./components/todoPriorityInfo";
+    import TodoColorInfo from "./components/TodoColorInfo";
 
     export default {
         name: 'App',
         components: {
+            TodoColorInfo,
+            TodoPriorityInfo,
+            TodoToolbar,
             TodoList
         },
         data() {

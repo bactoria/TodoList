@@ -11,6 +11,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(TodoNotFoundException.class)
     public @ResponseBody
     String todoNotFoundException(TodoNotFoundException e) {
-        return "{\"message\" : \"error.엥.앵\", \"reason\" : \"이유는이유. HELLO\"}";
+        return "{\"exception\" : \"TodoNotFoundException\", \"message\" : \"해당 Todo가 존재하지 않습니다.\"}";
     }
 }

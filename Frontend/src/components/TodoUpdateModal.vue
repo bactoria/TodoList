@@ -35,8 +35,8 @@
                 </div>
 
                 <div style="width: 40%; float:left;">
-                    <datepicker :language="ko" @selected="asd()" v-model="updateModal.closingDate" :inline="true"
-                                :open-date="updateModal.closingDate" style="margin: 20px 0 20px 0;"></datepicker>
+                    <datepicker :language="ko" v-model="updateModal.closingDate" :inline="true"
+                                style="margin: 20px 0 20px 0;"></datepicker>
                 </div>
 
             </v-card-actions>

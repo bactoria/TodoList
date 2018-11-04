@@ -12,7 +12,7 @@
                 <v-card-text>
                     <div class="GodoB" style="width: 100%;">
 
-                        <v-list v-for="todo in todoListExpired"
+                        <v-list v-for="todo in todoListExpired" :key="todo.todo.id"
                                 style="border:1px solid grey; margin: 5px 0 5px 0; background-color: darkorange">
                             <v-container>
                                 <v-layout row wrap>

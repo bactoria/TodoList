@@ -86,14 +86,9 @@
             },
             deleteClosingDate() {
                 this.updateModal.closingDate = null
-                this.date2 = "없음."
             },
             nonClosingDate() {
                 return this.updateModal.closingDate == null
-            },
-            asd() {
-                console.log("tq")
-                console.log(this.updateModal.closingDate)
             }
         }
     }

@@ -26,6 +26,8 @@ npm run serve
 
 [http://localhost:8080](http://localhost:8080) 접속
 
+**(IE를 지원하지 않습니다.)**
+
 &nbsp;
 
 ---

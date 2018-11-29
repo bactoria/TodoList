@@ -5,9 +5,7 @@ Spring Boot, Vue.js 를 사용하여 TodoList를 만들었습니다.
 
 ![ezgif com-optimize](https://user-images.githubusercontent.com/25674959/48241613-ff66a600-e41a-11e8-894c-db1fcd2007a5.gif)
 
-테스트는 [여기서](http://13.209.61.231) 하실 수 있습니다.
-
-**(Internet Explorer 를 지원하지 않습니다.)**
+~~테스트는 [여기서]() 하실 수 있습니다.~~ (데모 종료)
 
 &nbsp;
 
